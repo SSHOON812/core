@@ -11,7 +11,7 @@ import hello.core.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration //설정정보
+@Configuration //설정정보 삭제해도 @Bean은 등록된다, 하지만 싱클톤은 깨진다.
 public class AppConfig {
 
     // 애플리케이션의 실제 동작에 필요한 구현 객체를 생성한다.
@@ -19,20 +19,37 @@ public class AppConfig {
     // 구성 담당 사용역역 (인터페이스 , 구현체)은 변경 x 역활과 구현을 명확하게 분리 , 중복제거 , 역할이 잘 들어남
 
 
-    // 객체를 생성하고 관리하면서 의존관계를 연결 해 주는 것을 DI , IOC 컨테이너 
+    // 객체를 생성하고 관리하면서 의존관계를 연결 해 주는 것을 DI , IOC 컨테이너
+
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //call AppConfig.memberRepository
+    //call AppConfig.orderService
+    //call AppConfig.memberRepository
+
+
+    //call AppConfig.memberService
+    //call AppConfig.memberRepository
+    //all AppConfig.orderService
+
 
     @Bean // 스프링 컨테이너에 등록 , 메서드의 이름을 스프링의 이름으로 사용 한다. 빈의 이름은 항상 다른 이름을 부여!
     public MemberService memberService(){ // 키값
+
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository()); // 밸류 값
     }
 
     @Bean
     public MemoryMemberRepository memberRepository() {
+
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(),  discountPolicy());
     }
 

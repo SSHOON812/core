@@ -20,7 +20,27 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy; // 인터페이스에만 의존 구현체에는 의존 하지 않는다. 누군가가 클라인트인 OrderServiceImpl에 DiscountPolicy 구현 객체를 대신 생성하고 주입해주어야 한다.
 
+
+    //필드주입 수정을 하려면  setter 필요 -> 수정자 인젝션  :: 사용하지 말자! //테스트 코드에서나 쓰자.
+    //@Autowired private  MemberRepository memberRepository;
+
+    /*
+    //private  MemberRepository memberRepository;
+    //private  DiscountPolicy discountPolicy;
+
+    @Autowired(required = false)   // 수정자 수입 // 선택 변경이 가능한 관계에 사용
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        this.discountPolicy = discountPolicy;
+    }
+
     @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+     */
+
+    @Autowired // 생성자 주입 불변, 필수 의존관계에 생성  !!! 생성자가 1개만 존재하면 @Autowired 생략해도 가능 하다
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;

@@ -1,5 +1,8 @@
 package hello.core;
 
+import hello.core.member.MemberRepository;
+import hello.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -13,4 +16,10 @@ import org.springframework.context.annotation.FilterType;
 
 // 권장 방법 = 설정 정보 클래스의 위치를 프로젝트 최상단에 두는 것 basePackages 지정은 생략 한다.
 public class AutoAppConfig {
+
+    @Bean(name="memoryMemberRepository")
+    MemberRepository memberRepository(){
+        return new MemoryMemberRepository();
+    }
+
 }

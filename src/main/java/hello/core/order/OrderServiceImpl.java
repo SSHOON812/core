@@ -3,10 +3,12 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor  // 필수값  final 붙은 것을 생성자를 만들어줌  // 많이 사용
 public class OrderServiceImpl implements OrderService{
 
     //정적인 의존관계 import 코드만 보고 의존 관계를 확인 할 수 있음 , 앱을 실행하지 않고도 확인 할 수 있다.
@@ -40,13 +42,26 @@ public class OrderServiceImpl implements OrderService{
 
      */
 
-    @Autowired // 생성자 주입 불변, 필수 의존관계에 생성  !!! 생성자가 1개만 존재하면 @Autowired 생략해도 가능 하다
+/*
+    @Autowired   // 메소드 생성자 주입 // 아무 메서드에나 주입 가능 // 일반 메서드를 통해서 주입 ,
+    public  void init(MemberRepository memberRepository, DiscountPolicy discountPolicy){
+        this.memberRepository = memberRepository ;
+        this.discountPolicy = discountPolicy ;
+    }
+
+*/
+
+
+
+
+/*
+   // @Autowired // 생성자 주입 불변, 필수 의존관계에 생성  !!! 생성자가 1개만 존재하면 @Autowired 생략해도 가능 하다
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
 
-
+*/
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
             Member member = memberRepository.findById(memberId);

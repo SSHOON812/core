@@ -51,7 +51,7 @@ public class SingletoneWithPrototypeTest1 {
 
 
         @Autowired
-        private Provider<PrototypeBean> prototypeBeanObjectProvider;
+        private ObjectProvider<PrototypeBean> prototypeBeanObjectProvider;
 
       //  @Autowired
        // public ClientBean(PrototypeBean prototypeBean) {
